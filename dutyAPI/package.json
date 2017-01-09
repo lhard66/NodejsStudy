@@ -1,0 +1,19 @@
+{
+  "name": "dutyapi",
+  "version": "1.0.0",
+  "description": "duty api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "duty",
+    "api"
+  ],
+  "author": "Hero Liu",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
