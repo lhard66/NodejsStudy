@@ -1,6 +1,9 @@
 const http = require('http');
 const express = require('express');
 
+const hostname = '127.0.0.1';
+const port = 3000;
+
 const app = express();
 
 app.get('/', (req, res) => {
@@ -12,4 +15,6 @@ app.get('/student/:id/:name', (req, res) => {
     res.send('id=' + id + '---name=' + name);
 });
 
-app.listen(3000);
+app.listen(prot, hostname, () => {
+    console.log('Server running at http://${hostname}:${port}');
+});
