@@ -15,6 +15,6 @@ app.get('/student/:id/:name', (req, res) => {
     res.send('id=' + id + '---name=' + name);
 });
 
-app.listen(prot, hostname, () => {
-    console.log('Server running at http://${hostname}:${port}');
+app.listen(port, hostname, () => {
+    console.log('Server running at http://' + hostname + ':' + port);
 });
