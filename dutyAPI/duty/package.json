@@ -1,0 +1,17 @@
+{
+  "name": "dutysimple",
+  "version": "1.0.0",
+  "description": "duty simple ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hero Liu",
+  "license": "ISC",
+  "dependencies": {
+    "animate.css": "^3.5.2",
+    "axios": "^0.15.3",
+    "bootstrap": "^3.3.7",
+    "vue": "^2.1.8"
+  }
+}

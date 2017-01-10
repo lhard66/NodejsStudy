@@ -1,0 +1,26 @@
+var dataJson = [{
+  "id": 1483433556965123,
+  "date": "1483433556965",
+  "members": ["李三", "李四", "王五"]
+}, {
+  "id": 1483433556965222,
+  "date": "1483435015527",
+  "members": ["李三", "王五"]
+}];
+var staff = [{
+  "id": 1,
+  "name": "张三",
+  "dutytimes": 5
+}, {
+  "id": 2,
+  "name": "李四",
+  "dutytimes": 0
+}, {
+  "id": 3,
+  "name": "王五",
+  "dutytimes": 3
+}, {
+  "id": 4,
+  "name": "田六",
+  "dutytimes": 2
+}];

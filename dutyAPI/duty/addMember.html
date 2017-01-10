@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta charset="utf-8">
+  <title>成员添加</title>
+  <link rel="stylesheet" href="lib/bootstrap.css">
+  <link rel="stylesheet" href="css/addmember.css">
+  <script src="lib/vue.js"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">值日管理</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="index.html">值日安排</a></li>
+          <li><a href="manageMember.html">成员管理</a></li>
+          <li><a href="addMember.html">成员添加</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container content-top">
+    <div class="row">
+      <div class="col-md-7">
+        <form id="app" class="form-horizontal" role="form" v-on:submit.prevent="addmember">
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">工号：</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="inputNum" v-model="num" placeholder="请输入工号">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">姓名：</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="inputName" v-model="name" placeholder="请输入姓名">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-2">
+              <button type="submit" class="btn btn-default">添加成员</button>
+            </div>
+            <div class="col-sm-8">
+              <span class="error">{{info}}</span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script>
+  var getId = function() {
+    var random = parseInt(Math.random() * 100);
+    return '' + Date.now() + random;
+  }
+  var storage = window.localStorage;
+  var members = storage['duty_members'] ? JSON.parse(storage['duty_members']) : [];
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      members: members,
+      num: '',
+      name: '',
+      info: ''
+    },
+    methods: {
+      save: function() {
+        storage['duty_members'] = JSON.stringify(vm.members);
+      },
+      addmember: function() {
+        //数据合法性验证
+        var info = '';
+        if (vm.num == '' || vm.name == '') {
+          vm.info = '用户名或密码不能为空！'
+          return;
+        }
+        members.push({
+          "id": getId(),
+          "num": vm.num,
+          "name": vm.name,
+          "dutytimes": 0
+        });
+        //vm.save();
+        //后台部分
+        axios.post('http://127.0.0.1:3000/addmember',{
+          params:{
+            ID:123,
+            name:'jim'
+          }
+        }).then(function(response){
+          let obj=response.data;
+          console.log(obj);
+        }).catch(function(err){
+          console.log(err);
+        })
+        //end后台部分
+        //vm.num = '';
+        //vm.name = '';
+        //vm.info = '';
+        //将焦点移至工号文本框内
+        document.getElementById('inputNum').focus();
+      }
+    }
+  });
+  </script>
+</body>
+
+</html>

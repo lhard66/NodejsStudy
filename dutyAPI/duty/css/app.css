@@ -1,0 +1,45 @@
+body {
+  min-height: 2000px;
+}
+
+.navbar-static-top {
+  margin-bottom: 19px;
+}
+
+.content-top {
+  margin-top: 80px;
+}
+
+.btn-add {
+  width: 80px;
+  float: right;
+  /*height: 60px;
+  position: relative;
+  right: -44px;*/
+}
+
+.btn-margin {
+  margin-left: 15px;
+}
+
+.content {
+  margin-top: 20px;
+}
+
+.info {
+  margin-top: 10px;
+}
+
+.info span {
+  margin-right: 5px;
+}
+
+.location {
+  position: relative;
+  top: -23px;
+  right: -6px;
+}
+
+[v-cloak] {
+  display: none;
+}
