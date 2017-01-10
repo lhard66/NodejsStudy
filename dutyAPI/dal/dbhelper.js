@@ -1,8 +1,8 @@
-var mongoClient = require('mongodb').MongoClient;
-var setting = require('./setting.js');
+const mongoClient = require('mongodb').MongoClient;
+const setting = require('./setting.js');
 
 function _connectDB(callback) {
-    var dburl = setting.dburl;
+    let dburl = setting.dburl;
     mongoClient.connect(dburl, (err, db)=> {
         callback(err, db);
     });
@@ -13,10 +13,9 @@ exports.insertDocuments = function (collectionName, json, callback) {
     _connectDB((err, db)=> {
         if (err) {
             db.close();
-            console.log('inserDocuments err');
             return;
         }
-        var collection = db.collection(collectionName);
+        let collection = db.collection(collectionName);
         collection.insertMany(json, (err, result)=> {
             callback(err, result);
             db.close();
@@ -32,7 +31,7 @@ exports.deleteOne = function (collectionName, json, callback) {
             console.log('deleteOne err');
             return;
         }
-        var collection = db.collection(collectionName);
+        let collection = db.collection(collectionName);
         collection.deleteOne(json, (err, result)=> {
             callback(err, result);
             db.close();
@@ -48,7 +47,7 @@ exports.deleteMany = function (collectionName, json, callback) {
             console.log('deleteMany err');
             return;
         }
-        var collection = db.collection(collectionName);
+        let collection = db.collection(collectionName);
         collection.deleteMany(json, (err, result)=> {
             callback(err, result);
             db.close();
@@ -64,7 +63,7 @@ exports.updateMany = function (collectionName, oldjson, newjson, optionjson, cal
             console.log('updateMany err');
             return;
         }
-        var collection = db.collection(collectionName);
+        let collection = db.collection(collectionName);
         collection.updateMany(oldjson, {$set: newjson}, optionjson, (err, result)=> {
             callback(err, result);
             db.close();
@@ -80,11 +79,11 @@ exports.find = function (collectionName, queryjson, argsjson, callback) {
             console.log('findAll err');
             return;
         }
-        var collection = db.collection(collectionName);
+        let collection = db.collection(collectionName);
         //解析argsjson
-        var _skip = argsjson.skip || 0;
-        var _limit = argsjson.limit || 0;
-        var _sort = argsjson.sort || {};
+        let _skip = argsjson.skip || 0;
+        let _limit = argsjson.limit || 0;
+        let _sort = argsjson.sort || {};
         //console.log(_sort);
         //console.log(_skip + '---' + _limit);
         collection.find(queryjson).skip(_skip).limit(_limit).sort(_sort).toArray((err, docs)=> {

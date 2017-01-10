@@ -1,3 +1,3 @@
 module.exports = {
-    "dburl": "mongodb://localhost:27017/test"
+    "dburl": "mongodb://127.0.0.1:27017/company"
 }
