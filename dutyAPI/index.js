@@ -1,6 +1,7 @@
 const http = require('http');
 const express = require('express');
 const formidable = require('formidable');
+const memberCtrl=require('./controller/memberController');
 
 const hostname = '127.0.0.1';
 const port = 3000;
@@ -17,12 +18,12 @@ app.get('/student/:id/:name', (req, res) => {
     let name = req.params['name'];
     res.send('id=' + id + '---name=' + name);
 });
-app.get('/addmember', (req, res) => {
+app.post('/duty/addmem', (req, res) => {
     let form = new formidable.IncomingForm();
     form.parse(req, (err, fields) => {
-        console.log(fields);
+        //拿到json，交由对应的控制器处理
+        memberCtrl.addMember(fields.params);
     });
-    console.log(888);
     res.send('ok');
 });
 

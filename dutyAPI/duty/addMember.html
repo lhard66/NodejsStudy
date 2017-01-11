@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="lib/bootstrap.css">
   <link rel="stylesheet" href="css/addmember.css">
   <script src="lib/vue.js"></script>
+  <script src="lib/axios.js"></script>
 </head>
 
 <body>
@@ -92,22 +93,23 @@
         });
         //vm.save();
         //后台部分
-        axios.post('http://127.0.0.1:3000/addmember',{
-          params:{
-            ID:123,
-            name:'jim'
-          }
-        }).then(function(response){
-          let obj=response.data;
-          console.log(obj);
-        }).catch(function(err){
-          console.log(err);
-        })
-        //end后台部分
-        //vm.num = '';
-        //vm.name = '';
-        //vm.info = '';
-        //将焦点移至工号文本框内
+        axios.post('http://127.0.0.1:3000/duty/addmem', {
+            params: {
+              "num": vm.num,
+              "name": vm.name,
+              "dutytimes": 0
+            }
+          }).then(function(response) {
+            let obj = response.data;
+            console.log(obj);
+          }).catch(function(err) {
+            console.log(err);
+          })
+          //end后台部分
+          //vm.num = '';
+          //vm.name = '';
+          //vm.info = '';
+          //将焦点移至工号文本框内
         document.getElementById('inputNum').focus();
       }
     }
