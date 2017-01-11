@@ -13,6 +13,15 @@ function addMember(memJson) {
         });
         return status;
     }
-
 }
-module.exports = {addMember}
+function listMember(callback) {
+    let objJson=[];
+    dbhelper.find('member',{},{},(err,docs)=>{
+        if(!err){
+            callback(docs);
+        }else {
+            callback('error');
+        }
+    });
+}
+module.exports = {addMember,listMember}

@@ -23,11 +23,13 @@ app.post('/duty/addmem', (req, res) => {
     form.parse(req, (err, fields) => {
         //拿到json，交由对应的控制器处理
         let status = memberCtrl.addMember(fields.params);
-        if(status=='ok'){
-            res.send('ok');
-        }else {
-            res.send('error');
-        }
+        res.send(status);
+    });
+});
+app.get('/duty/listmem', (req, res) => {
+    //返回json数据
+    memberCtrl.listMember(objJson => {
+        res.send(objJson);
     });
 });
 

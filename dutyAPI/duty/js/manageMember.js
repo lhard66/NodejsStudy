@@ -1,3 +1,22 @@
+var staff = [{
+  "id": 1,
+  "name": "张三",
+  "dutytimes": 5
+}, {
+  "id": 2,
+  "name": "李四",
+  "dutytimes": 0
+}, {
+  "id": 3,
+  "name": "王五",
+  "dutytimes": 3
+}, {
+  "id": 4,
+  "name": "田六",
+  "dutytimes": 2
+}];
+
+
 var getId = function() {
   var random = parseInt(Math.random() * 100);
   return '' + Date.now() + random;
@@ -6,10 +25,23 @@ var storage = window.localStorage;
 var vm = new Vue({
   el: '#app',
   data: {
-    members: storage['duty_members'] ? JSON.parse(storage['duty_members']) : [],
+    //此处通过异步请求赋值。
+    //members: storage['duty_members'] ? JSON.parse(storage['duty_members']) : [],
+    members:'',
     num: '',
     name: '',
     info: ''
+  },
+  mounted: function() {
+    //this.members = staff;
+    var mv=this;
+    axios.get('http://127.0.0.1:3000/duty/listmem')
+    .then(function(response){
+      console.log(response.data);
+      mv.members=response.data;
+    }).catch(function(err){
+      console.log(err);
+    });
   },
   methods: {
     save: function() {
