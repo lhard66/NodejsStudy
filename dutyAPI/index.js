@@ -1,14 +1,14 @@
 const http = require('http');
 const express = require('express');
 const formidable = require('formidable');
-const memberCtrl=require('./controller/memberController');
+const memberCtrl = require('./controller/memberController');
 
 const hostname = '127.0.0.1';
 const port = 3000;
 
 const app = express();
 //静态服务
-app.use('/duty',express.static('./duty'));
+app.use('/duty', express.static('./duty'));
 
 app.get('/', (req, res) => {
     res.send('hello world');
@@ -22,9 +22,15 @@ app.post('/duty/addmem', (req, res) => {
     let form = new formidable.IncomingForm();
     form.parse(req, (err, fields) => {
         //拿到json，交由对应的控制器处理
-        memberCtrl.addMember(fields.params);
+        let status = memberCtrl.addMember(fields.params, status => {
+            if (status == 'ok') {
+                res.send('ok');
+            } else {
+                res.send('error');
+            }
+        });
+
     });
-    res.send('ok');
 });
 
 app.listen(port, hostname, () => {

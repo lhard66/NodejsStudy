@@ -17,7 +17,6 @@ exports.insertDocuments = function (collectionName, json, callback) {
         }
         let collection = db.collection(collectionName);
         collection.insertMany(json, (err, result)=> {
-            console.log('suss');
             callback(err, result);
             db.close();
         });
