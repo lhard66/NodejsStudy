@@ -67,7 +67,7 @@
               <td>{{item.name}}</td>
               <td>{{item.dutytimes}}</td>
               <td>
-                <button type="button" class="btn btn-danger btn-xs" @click="delMember(item.id)">删除</button>
+                <button type="button" class="btn btn-danger btn-xs" :myid="item._id" @click="delMember(item._id)">删除</button>
               </td>
             </tr>
           </tbody>

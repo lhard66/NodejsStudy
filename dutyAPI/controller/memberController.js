@@ -25,7 +25,7 @@ function listMember(callback) {
     });
 }
 function delMember(id, callback) {
-    dbhelper.deleteOne('member', {"num": id}, (error, result) => {
+    dbhelper.deleteById('member', id, (error, result) => {
         if (error) {
             callback(error);
         } else {

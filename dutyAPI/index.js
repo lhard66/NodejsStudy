@@ -32,15 +32,16 @@ app.get('/duty/listmem', (req, res) => {
         res.send(objJson);
     });
 });
-app.get('/duty/delmem/:id', (req, res) => {
-    let id = req.params['id'];
+app.get('/duty/delmem/', (req, res) => {
+    let id = req.query.id;
     if (id) {
         memberCtrl.delMember(id, (error, result) => {
-            res.send(result);
+            res.send("ok");
         })
-    } else {
-        res.send('error');
+    }else {
+        res.send("err");
     }
+
 });
 
 app.listen(port, hostname, () => {
