@@ -2,6 +2,7 @@ const http = require('http');
 const express = require('express');
 const formidable = require('formidable');
 const memberCtrl = require('./controller/memberController');
+const dutyCtrl=require('./controller/dutyController');
 
 const hostname = '127.0.0.1';
 const port = 3000;
@@ -41,6 +42,23 @@ app.get('/duty/delmem/', (req, res) => {
     }else {
         res.send("err");
     }
+});
+app.post('/duty/addduty/',(req,res)=>{
+    //拿到json
+    let form=new formidable.IncomingForm();
+    form.parse(req,(err,fields)=>{
+        if(fields){
+            dutyCtrl.addDuty(fields,stat=>{
+                console.log(stat);
+                res.send('ok');
+            });
+        }else {
+            res.send('err');
+        }
+    });
+    //把json给控制器
+
+    //处理异常
 
 });
 

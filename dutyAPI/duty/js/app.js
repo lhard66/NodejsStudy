@@ -12,6 +12,16 @@ var vm = new Vue({
     members: storage['duty_members'] ? JSON.parse(storage['duty_members']) : [],
     selmembers: []
   },
+  mounted: function() {
+    var mv = this;
+    axios.get('http://127.0.0.1:3000/duty/listmem')
+      .then(function(response) {
+        // console.log(response.data);
+        mv.members = response.data;
+      }).catch(function(err) {
+        console.log(err);
+      });
+  },
   methods: {
     saveCompany: function() {
       storage['duty_company'] = JSON.stringify(this.company);
@@ -33,9 +43,17 @@ var vm = new Vue({
           }
         }
       });
-      this.saveCompany();
-      this.saveMember();
-      //重置多选按钮
+      axios.post('http://127.0.0.1:3000/duty/addduty', {
+          "date": Date.now(),
+          "members": this.selmembers
+        }).then(function(response) {
+          console.log(response.data)
+        }).catch(function(err) {
+          console.log(err)
+        })
+        //this.saveCompany();
+        //this.saveMember();
+        //重置多选按钮
       this.selmembers = [];
     },
     remove: function(id) {

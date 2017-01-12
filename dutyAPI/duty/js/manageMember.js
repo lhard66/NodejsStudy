@@ -41,7 +41,7 @@ var vm = new Vue({
         mv.members = response.data;
       }).catch(function(err) {
         console.log(err);
-      });
+    });
   },
   methods: {
     save: function() {
