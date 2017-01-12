@@ -32,6 +32,16 @@ app.get('/duty/listmem', (req, res) => {
         res.send(objJson);
     });
 });
+app.get('/duty/delmem/:id', (req, res) => {
+    let id = req.params['id'];
+    if (id) {
+        memberCtrl.delMember(id, (error, result) => {
+            res.send(result);
+        })
+    } else {
+        res.send('error');
+    }
+});
 
 app.listen(port, hostname, () => {
     console.log('Server running at http://' + hostname + ':' + port);

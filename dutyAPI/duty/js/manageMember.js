@@ -51,7 +51,17 @@ var vm = new Vue({
       vm.members.forEach(function(mem, index) {
         if (mem.id == id) {
           vm.members.splice(index, 1);
-          vm.save();
+          //删除数据库中的数据
+          axios.get('',{
+            params:{
+              'id':id
+            }
+          }).then(function(response){
+            console.log(response.data)
+          }).catch(function(error){
+            console.log(error)
+          })
+          //vm.save();
           return;
         }
       });
