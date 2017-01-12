@@ -1,27 +1,8 @@
-var staff = [{
-  "id": 1,
-  "name": "张三",
-  "dutytimes": 5
-}, {
-  "id": 2,
-  "name": "李四",
-  "dutytimes": 0
-}, {
-  "id": 3,
-  "name": "王五",
-  "dutytimes": 3
-}, {
-  "id": 4,
-  "name": "田六",
-  "dutytimes": 2
-}];
-
-
 var getId = function() {
-  var random = parseInt(Math.random() * 100);
-  return '' + Date.now() + random;
-}
-var storage = window.localStorage;
+    var random = parseInt(Math.random() * 100);
+    return '' + Date.now() + random;
+  }
+  // var storage = window.localStorage;
 var vm = new Vue({
   el: '#app',
   data: {
@@ -41,7 +22,7 @@ var vm = new Vue({
         mv.members = response.data;
       }).catch(function(err) {
         console.log(err);
-    });
+      });
   },
   methods: {
     save: function() {
@@ -73,12 +54,8 @@ var vm = new Vue({
         vm.info = '姓名或密码不为空'
         return;
       }
-      this.members.push({
-        "id": getId(),
-        "num": vm.num,
-        "name": vm.name,
-        "dutytimes": 0
-      });
+      var mNum=this.num;
+      var mName=this.name;
       //vm.save();
       //后台部分
       axios.post('http://127.0.0.1:3000/duty/addmem', {
@@ -89,7 +66,14 @@ var vm = new Vue({
         }
       }).then(function(response) {
         let obj = response.data;
-        console.log(obj);
+        if (obj) {
+          vm.members.push({
+            "id": obj,
+            "num": mNum,
+            "name": mName,
+            "dutytimes": 0
+          });
+        }
       }).catch(function(err) {
         console.log(err);
       })

@@ -23,8 +23,14 @@ app.post('/duty/addmem', (req, res) => {
     let form = new formidable.IncomingForm();
     form.parse(req, (err, fields) => {
         //拿到json，交由对应的控制器处理
-        let status = memberCtrl.addMember(fields.params);
-        res.send(status);
+        memberCtrl.addMember(fields.params,result=>{
+            if(result!='err'){
+                res.send(result);
+            }else {
+                res.send('err');
+            }
+        });
+
     });
 });
 app.get('/duty/listmem', (req, res) => {

@@ -1,9 +1,9 @@
 var chinaWeek = ['日', '一', '二', '三', '四', '五', '六'];
-var storage = window.localStorage;
-var getId = function() {
-  var random = parseInt(Math.random() * 1000);
-  return '' + Date.now() + random;
-}
+//var storage = window.localStorage;
+// var getId = function() {
+//   var random = parseInt(Math.random() * 1000);
+//   return '' + Date.now() + random;
+// }
 
 var vm = new Vue({
   el: '#app',
