@@ -57,10 +57,10 @@
     <div class="row content">
       <div class="col-md-9 col-md-offset-1">
         <transition-group enter-active-class="animated fadeInDown" leave-active-class="animated bounceOutRight">
-          <div class="panel panel-default" v-for="item in company" :key="item.id">
+          <div class="panel panel-default" v-for="item in company" :key="item._id">
             <div class="panel-heading">
               <h3 class="panel-title">{{item.date | dutydate}}</h3>
-              <button type="button" class="close location" @click="remove(item.id)"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <button type="button" class="close location" @click="remove(item._id)"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="panel-body">
               <button class="btn btn-primary btn-margin" type="button" v-for="name in item.members">

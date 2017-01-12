@@ -2,7 +2,7 @@ const http = require('http');
 const express = require('express');
 const formidable = require('formidable');
 const memberCtrl = require('./controller/memberController');
-const dutyCtrl=require('./controller/dutyController');
+const dutyCtrl = require('./controller/dutyController');
 
 const hostname = '127.0.0.1';
 const port = 3000;
@@ -39,26 +39,47 @@ app.get('/duty/delmem/', (req, res) => {
         memberCtrl.delMember(id, (error, result) => {
             res.send("ok");
         })
-    }else {
+    } else {
         res.send("err");
     }
 });
-app.post('/duty/addduty/',(req,res)=>{
+app.post('/duty/addduty/', (req, res) => {
     //拿到json
-    let form=new formidable.IncomingForm();
-    form.parse(req,(err,fields)=>{
-        if(fields){
-            dutyCtrl.addDuty(fields,stat=>{
-                console.log(stat);
-                res.send('ok');
+    let form = new formidable.IncomingForm();
+    form.parse(req, (err, fields) => {
+        if (fields) {
+            dutyCtrl.addDuty(fields, result => {
+                if (result != 'err') {
+                    res.send(result);
+                }
             });
-        }else {
+        } else {
             res.send('err');
         }
     });
     //把json给控制器
 
     //处理异常
+
+});
+app.get('/duty/listduty', (req, res) => {
+    dutyCtrl.listDuty(result => {
+        if (result != 'err') {
+            res.send(result);
+        } else {
+            res.send('error');
+        }
+    })
+});
+app.get('/duty/delduty', (req, res) => {
+    let id = req.query.id;
+    if (id) {
+        dutyCtrl.delDuty(id, stat => {
+            res.send(stat);
+        });
+    } else {
+        res.send('err');
+    }
 
 });
 

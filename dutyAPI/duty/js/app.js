@@ -8,19 +8,28 @@ var getId = function() {
 var vm = new Vue({
   el: '#app',
   data: {
-    company: storage['duty_company'] ? JSON.parse(storage['duty_company']) : [],
-    members: storage['duty_members'] ? JSON.parse(storage['duty_members']) : [],
+    //company: storage['duty_company'] ? JSON.parse(storage['duty_company']) : [],
+    //members: storage['duty_members'] ? JSON.parse(storage['duty_members']) : [],
+    company: '',
+    members: '',
     selmembers: []
   },
   mounted: function() {
     var mv = this;
     axios.get('http://127.0.0.1:3000/duty/listmem')
       .then(function(response) {
-        // console.log(response.data);
+        console.log(response.data);
         mv.members = response.data;
       }).catch(function(err) {
         console.log(err);
       });
+    axios.get('http://127.0.0.1:3000/duty/listduty')
+      .then(function(response) {
+        mv.company = response.data;
+        console.log(response.data)
+      }).catch(function(err) {
+        console.log(err)
+      })
   },
   methods: {
     saveCompany: function() {
@@ -30,11 +39,8 @@ var vm = new Vue({
       storage['duty_members'] = JSON.stringify(this.members);
     },
     addMember: function() {
-      this.company.unshift({
-        "id": getId(),
-        "date": Date.now(),
-        "members": this.selmembers
-      });
+      var vm = this;
+      var mSelmembers = this.selmembers
       this.selmembers.forEach(function(name) {
         for (var num in vm.members) {
           var employee = vm.members[num];
@@ -45,9 +51,16 @@ var vm = new Vue({
       });
       axios.post('http://127.0.0.1:3000/duty/addduty', {
           "date": Date.now(),
-          "members": this.selmembers
+          "members": mSelmembers
         }).then(function(response) {
-          console.log(response.data)
+          if (response.data == 'err') {
+            return;
+          }
+          vm.company.unshift({
+            "_id": response.data,
+            "date": Date.now(),
+            "members": mSelmembers
+          });
         }).catch(function(err) {
           console.log(err)
         })
@@ -56,9 +69,19 @@ var vm = new Vue({
         //重置多选按钮
       this.selmembers = [];
     },
-    remove: function(id) {
+    remove: function(id) {      
+      axios.get('http://127.0.0.1:3000/duty/delduty', {
+        params: {
+          'id': id
+        }
+      }).then(function(response) {
+        console.log(response.data)
+      }).catch(function(err) {
+        console.log(err)
+      })
+
       this.company.forEach(function(element, index) {
-        if (id == element.id) {
+        if (id == element._id) {
           this.company.splice(index, 1);
           this.saveCompany();
           return;
