@@ -1,4 +1,5 @@
 const mongoClient = require('mongodb').MongoClient;
+const ObjectId=require('mongodb').ObjectId;
 const setting = require('./setting.js');
 
 function _connectDB(callback) {
@@ -34,6 +35,21 @@ exports.deleteOne = function (collectionName, json, callback) {
         let collection = db.collection(collectionName);
         collection.deleteOne(json, (err, result)=> {
             callback(err, result);
+            db.close();
+        });
+    })
+}
+//根据ID删除
+exports.deleteById=function(collectionName,id,callback){
+    _connectDB((err,db)=>{
+        if(err){
+            db.close();
+            console.log('deleteById err');
+            return;
+        }
+        let collection=db.collection(collectionName);
+        collection.deleteOne({"_id":ObjectId(id)},(err,result)=>{
+            callback(err,result);
             db.close();
         });
     })
