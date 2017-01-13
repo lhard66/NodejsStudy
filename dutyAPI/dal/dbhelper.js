@@ -1,9 +1,8 @@
 const mongoClient = require('mongodb').MongoClient;
 const ObjectId=require('mongodb').ObjectId;
-const setting = require('./setting.js');
+const {dburl} = require('../setting');
 
 function _connectDB(callback) {
-    let dburl = setting.dburl;
     mongoClient.connect(dburl, (err, db)=> {
         callback(err, db);
     });

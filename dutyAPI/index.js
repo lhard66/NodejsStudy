@@ -4,8 +4,7 @@ const formidable = require('formidable');
 const memberCtrl = require('./controller/memberController');
 const dutyCtrl = require('./controller/dutyController');
 
-const hostname = '127.0.0.1';
-const port = 3000;
+const {hostname, port}=require('./setting');
 
 const app = express();
 //静态服务
@@ -23,10 +22,10 @@ app.post('/duty/addmem', (req, res) => {
     let form = new formidable.IncomingForm();
     form.parse(req, (err, fields) => {
         //拿到json，交由对应的控制器处理
-        memberCtrl.addMember(fields.params,result=>{
-            if(result!='err'){
+        memberCtrl.addMember(fields.params, result => {
+            if (result != 'err') {
                 res.send(result);
-            }else {
+            } else {
                 res.send('err');
             }
         });
