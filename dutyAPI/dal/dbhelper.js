@@ -97,9 +97,6 @@ exports.increment = function (collectionName, indentityJson, addFieldJson, callb
             return;
         }
         let collection = db.collection(collectionName);
-        // console.log('---------');
-        // console.log(indentityJson);
-        // console.log(addFieldJson);
         collection.updateOne(indentityJson, {$inc: addFieldJson}, (err, result) => {
             callback(err, result);
             db.close();
@@ -120,8 +117,6 @@ exports.find = function (collectionName, queryjson, argsjson, callback) {
         let _skip = argsjson.skip || 0;
         let _limit = argsjson.limit || 0;
         let _sort = argsjson.sort || {};
-        //console.log(_sort);
-        //console.log(_skip + '---' + _limit);
         collection.find(queryjson).skip(_skip).limit(_limit).sort(_sort).toArray((err, docs) => {
             callback(err, docs);
             db.close();
