@@ -16,7 +16,7 @@ var vm = new Vue({
   mounted: function() {
     //this.members = staff;
     var mv = this;
-    axios.get('http://127.0.0.1:3000/duty/listmem')
+    axios.get('/duty/listmem')
       .then(function(response) {
         // console.log(response.data);
         mv.members = response.data;
@@ -33,7 +33,7 @@ var vm = new Vue({
         if (mem._id == id) {
           vm.members.splice(index, 1);
           //删除数据库中的数据
-          axios.get('http://127.0.0.1:3000/duty/delmem/', {
+          axios.get('/duty/delmem/', {
               params: {
                 'id': id
               }
@@ -58,7 +58,7 @@ var vm = new Vue({
       var mName=this.name;
       //vm.save();
       //后台部分
-      axios.post('http://127.0.0.1:3000/duty/addmem', {
+      axios.post('/duty/addmem', {
         params: {
           "num": vm.num,
           "name": vm.name,

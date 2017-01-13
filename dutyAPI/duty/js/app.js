@@ -4,7 +4,7 @@ var chinaWeek = ['日', '一', '二', '三', '四', '五', '六'];
 //   var random = parseInt(Math.random() * 1000);
 //   return '' + Date.now() + random;
 // }
-
+var url='';
 var vm = new Vue({
   el: '#app',
   data: {
@@ -16,14 +16,14 @@ var vm = new Vue({
   },
   mounted: function() {
     var mv = this;
-    axios.get('http://127.0.0.1:3000/duty/listmem')
+    axios.get('/duty/listmem')
       .then(function(response) {
         console.log(response.data);
         mv.members = response.data;
       }).catch(function(err) {
         console.log(err);
       });
-    axios.get('http://127.0.0.1:3000/duty/listduty')
+    axios.get('/duty/listduty')
       .then(function(response) {
         mv.company = response.data;
         console.log(response.data)
@@ -31,13 +31,7 @@ var vm = new Vue({
         console.log(err)
       })
   },
-  methods: {
-    saveCompany: function() {
-      storage['duty_company'] = JSON.stringify(this.company);
-    },
-    saveMember: function() {
-      storage['duty_members'] = JSON.stringify(this.members);
-    },
+  methods: {  
     addMember: function() {
       var vm = this;
       var mSelmembers = this.selmembers
@@ -49,7 +43,7 @@ var vm = new Vue({
           }
         }
       });
-      axios.post('http://127.0.0.1:3000/duty/addduty', {
+      axios.post('/duty/addduty', {
           "date": Date.now(),
           "members": mSelmembers
         }).then(function(response) {
@@ -64,13 +58,12 @@ var vm = new Vue({
         }).catch(function(err) {
           console.log(err)
         })
-        //this.saveCompany();
-        //this.saveMember();
+        
         //重置多选按钮
       this.selmembers = [];
     },
     remove: function(id) {      
-      axios.get('http://127.0.0.1:3000/duty/delduty', {
+      axios.get('/duty/delduty', {
         params: {
           'id': id
         }

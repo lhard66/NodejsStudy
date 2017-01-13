@@ -1,5 +1,5 @@
 {
-  "dburl": "mongodb://127.0.0.1:27017/company",
-  "hostname": "127.0.0.1",
+  "dburl": "mongodb://127.0.0.1/company",
+  "hostname": "192.168.3.23",
   "port": 3000
 }

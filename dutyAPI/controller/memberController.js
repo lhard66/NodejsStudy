@@ -16,7 +16,6 @@ function addMember(memJson,callback) {
     }
 }
 function listMember(callback) {
-    let objJson = [];
     dbhelper.find('member', {}, {}, (err, docs) => {
         if (!err) {
             callback(docs);

@@ -85,7 +85,8 @@
           vm.info = '用户名或密码不能为空！'
           return;
         }
-        members.push({          
+        members.push({
+          "id": getId(),
           "num": vm.num,
           "name": vm.name,
           "dutytimes": 0
